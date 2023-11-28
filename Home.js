@@ -8,33 +8,11 @@ export default function CreatePost() {
     // Add the logic to handle post submission
   };
 
-
   return (
 
     
 
 
-    <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-
-  useEffect(() => {
-    //para hacer cambios 
-    const messagesRef = firebase.database().ref('messages');
-    messagesRef.on('value', (snapshot) => {
-      const messagesData = snapshot.val();
-      if (messagesData) {
-        const messagesArray = Object.values(messagesData);
-        setMessages(messagesArray);
-      }
-    });
-  }, []);
-
-  const handleSubmit= () =>{
-    const messagesRef = firebase.database().ref('messages');
-  }
-
-  return (
     <View style={styles.container}>
       <TextInput
         style={styles.input}
@@ -53,7 +31,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
 
-
     backgroundColor: '#0D203C',
     alignItems: 'center',
     justifyContent: 'center',
@@ -69,7 +46,6 @@ const styles = StyleSheet.create({
       textAlign: 'center',
       marginBottom: 10,
       marginTop: 10,
-
 
     justifyContent: 'center',
     padding: 16,
