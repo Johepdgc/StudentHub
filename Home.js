@@ -9,12 +9,16 @@ export default function CreatePost() {
   };
 
   return (
+
+    
+
+
     <View style={styles.container}>
       <TextInput
         style={styles.input}
         multiline
         numberOfLines={4}
-        placeholder="What's on your ?"
+        placeholder="What's on your mind?"
         value={postContent}
         onChangeText={setPostContent}
       />
@@ -26,6 +30,23 @@ export default function CreatePost() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+
+    backgroundColor: '#0D203C',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  input: {
+    height: 50,
+      width: 250,
+      borderWidth: 1,
+      padding: 10,
+      borderRadius: 30,
+      backgroundColor: 'white',
+      textAlign: 'center',
+      marginBottom: 10,
+      marginTop: 10,
+
     justifyContent: 'center',
     padding: 16,
   },
@@ -35,5 +56,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 12,
     paddingLeft: 8,
+
   },
 });
