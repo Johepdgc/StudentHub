@@ -18,7 +18,6 @@ const Login = () => {
                     style={styles.input}
                     placeholder="Usuario"
                     // logica para controlar el input de usuario
-                
                 />
                 <TextInput
                     style={styles.input}
