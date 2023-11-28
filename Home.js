@@ -49,50 +49,6 @@ export default function CreatePost() {
   );
 }
 
-
-
-  return (
-    <View style={(StyleSheet.create({
-      container: {
-        flex: 1,
-        justifyContent: 'center',
-        padding: 16,
-      },
-      input: {
-        height: 80,
-        borderColor: 'gray',
-        borderWidth: 1,
-        marginBottom: 12,
-        paddingLeft: 8,
-      },
-    })).container}>
-      <TextInput
-        style={(StyleSheet.create({
-          container: {
-            flex: 1,
-            justifyContent: 'center',
-            padding: 16,
-          },
-          input: {
-            height: 80,
-            borderColor: 'gray',
-            borderWidth: 1,
-            marginBottom: 12,
-            paddingLeft: 8,
-          },
-        })).input}
-        multiline
-        numberOfLines={4}
-        placeholder="What's on your mind?"
-        value={postContent}
-        onChangeText={setPostContent}
-      />
-      <Button title="Post" onPress={handleSubmit} />
-    </View>
-  );
-  
-
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
