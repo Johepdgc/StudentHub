@@ -24,7 +24,7 @@ const Login = () => {
                     placeholder="Contraseña"
                     // logica para controlar el input de contraseña
                 />
-                <Pressable style={styles.button} on onPress={() => (navigator.navigate('CreatePost'))}>
+                <Pressable style={styles.button} on onPress={() => (navigator.navigate('Groups'))}>
                     <Text style={styles.buttonText}>Ingresar</Text>
                 </Pressable>
             </View>
