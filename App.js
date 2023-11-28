@@ -1,7 +1,28 @@
 import { StatusBar } from 'expo-status-bar';
 import { Pressable, StyleSheet, Text, View, Image } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Login from './Login';
+import Register from './Register';
+import CreatePost from './Home';
+
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName='Home'>
+        <Stack.Screen name='Home' component={HomeScreen} />
+        <Stack.Screen name='Login' component={Login} />
+        <Stack.Screen name='Register' component={Register} />
+        <Stack.Screen name='CreatePost' component={CreatePost} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
@@ -11,10 +32,10 @@ export default function App() {
         />
       </View>
       <View style={styles.buttonContainer}>
-        <Pressable style={styles.button} on onPress={() => {/* Navigate to Login page */ }}>
+        <Pressable style={styles.button} onPress={() => navigation.navigate('Login')}>
           <Text style={styles.buttonText}>Iniciar Sesión</Text>
         </Pressable>
-        <Pressable style={styles.button} on onPress={() => {/* Navigate to Registration page */ }}>
+        <Pressable style={styles.button} onPress={() => navigation.navigate('Register')}>
           <Text style={styles.buttonText}>Registarse</Text>
         </Pressable>
       </View>
@@ -31,14 +52,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   imageContainer: {
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    marginBottom: 20,
+    marginTop: 20,
   },
   buttonContainer: {
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    marginBottom: 20,
+    marginTop: 20,
   },
   logo: {
     width: 158,
