@@ -8,6 +8,7 @@ export default function CreatePost() {
     // Add the logic to handle post submission
   };
 
+
   return (
 
     
@@ -16,6 +17,63 @@ export default function CreatePost() {
     <View style={styles.container}>
       <TextInput
         style={styles.input}
+
+  useEffect(() => {
+    // HACER CAMBIOS 
+    const messagesRef = firebase.database().ref('messages');
+    messagesRef.on('value', (snapshot) => {
+      const messagesData = snapshot.val();
+      if (messagesData) {
+        const messagesArray = Object.values(messagesData);
+        setMessages(messagesArray);
+      }
+    });
+  }, []);
+
+  function handleSubmit() {
+    const messagesRef = firebase.database().ref('messages');
+    messagesRef.push({
+      text: postContent,
+      timestamp: firebase.database.ServerValue.TIMESTAMP,
+    });
+    setPostContent('');
+  }
+
+  return (
+    <View style={(StyleSheet.create({
+      container: {
+        flex: 1,
+        justifyContent: 'center',
+        padding: 16,
+      },
+      input: {
+        height: 80,
+        borderColor: 'gray',
+        borderWidth: 1,
+        marginBottom: 12,
+        paddingLeft: 8,
+      },
+    })).container}>
+      <FlatList
+        data={messages}
+        renderItem={({ item }) => <Text>{item.text}</Text>}
+        keyExtractor={(item) => item.timestamp.toString()}
+      />
+      <TextInput
+        style={(StyleSheet.create({
+          container: {
+            flex: 1,
+            justifyContent: 'center',
+            padding: 16,
+          },
+          input: {
+            height: 80,
+            borderColor: 'gray',
+            borderWidth: 1,
+            marginBottom: 12,
+            paddingLeft: 8,
+          },
+        })).input}
         multiline
         numberOfLines={4}
         placeholder="What's on your mind?"
@@ -27,9 +85,58 @@ export default function CreatePost() {
   );
 }
 
+
+
+  return (
+    <View style={(StyleSheet.create({
+      container: {
+        flex: 1,
+        justifyContent: 'center',
+        padding: 16,
+      },
+      input: {
+        height: 80,
+        borderColor: 'gray',
+        borderWidth: 1,
+        marginBottom: 12,
+        paddingLeft: 8,
+      },
+    })).container}>
+      <TextInput
+        style={(StyleSheet.create({
+          container: {
+            flex: 1,
+            justifyContent: 'center',
+            padding: 16,
+          },
+          input: {
+            height: 80,
+            borderColor: 'gray',
+            borderWidth: 1,
+            marginBottom: 12,
+            paddingLeft: 8,
+          },
+        })).input}
+        multiline
+        numberOfLines={4}
+        placeholder="What's on your mind?"
+        value={postContent}
+        onChangeText={setPostContent}
+      />
+      <Button title="Post" onPress={handleSubmit} />
+    </View>
+  );
+
+}
+
+  
+
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+
 
     backgroundColor: '#0D203C',
     alignItems: 'center',
@@ -46,6 +153,7 @@ const styles = StyleSheet.create({
       textAlign: 'center',
       marginBottom: 10,
       marginTop: 10,
+
 
     justifyContent: 'center',
     padding: 16,
