@@ -19,7 +19,7 @@ export default function CreatePost() {
         style={styles.input}
 
   useEffect(() => {
-    // HACER CAMBIOS 
+    //para hacer cambios 
     const messagesRef = firebase.database().ref('messages');
     messagesRef.on('value', (snapshot) => {
       const messagesData = snapshot.val();
@@ -30,50 +30,14 @@ export default function CreatePost() {
     });
   }, []);
 
-  function handleSubmit() {
+  const handleSubmit= () =>{
     const messagesRef = firebase.database().ref('messages');
-    messagesRef.push({
-      text: postContent,
-      timestamp: firebase.database.ServerValue.TIMESTAMP,
-    });
-    setPostContent('');
   }
 
   return (
-    <View style={(StyleSheet.create({
-      container: {
-        flex: 1,
-        justifyContent: 'center',
-        padding: 16,
-      },
-      input: {
-        height: 80,
-        borderColor: 'gray',
-        borderWidth: 1,
-        marginBottom: 12,
-        paddingLeft: 8,
-      },
-    })).container}>
-      <FlatList
-        data={messages}
-        renderItem={({ item }) => <Text>{item.text}</Text>}
-        keyExtractor={(item) => item.timestamp.toString()}
-      />
+    <View style={styles.container}>
       <TextInput
-        style={(StyleSheet.create({
-          container: {
-            flex: 1,
-            justifyContent: 'center',
-            padding: 16,
-          },
-          input: {
-            height: 80,
-            borderColor: 'gray',
-            borderWidth: 1,
-            marginBottom: 12,
-            paddingLeft: 8,
-          },
-        })).input}
+        style={styles.input}
         multiline
         numberOfLines={4}
         placeholder="What's on your mind?"
@@ -126,11 +90,7 @@ export default function CreatePost() {
       <Button title="Post" onPress={handleSubmit} />
     </View>
   );
-
-}
-
   
-
 
 
 const styles = StyleSheet.create({
