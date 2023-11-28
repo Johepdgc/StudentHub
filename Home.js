@@ -9,7 +9,10 @@ export default function CreatePost() {
   };
 
   return (
+
     
+
+
     <View style={styles.container}>
       <TextInput
         style={styles.input}
@@ -27,6 +30,7 @@ export default function CreatePost() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+
     backgroundColor: '#0D203C',
     alignItems: 'center',
     justifyContent: 'center',
@@ -42,5 +46,16 @@ const styles = StyleSheet.create({
       textAlign: 'center',
       marginBottom: 10,
       marginTop: 10,
+
+    justifyContent: 'center',
+    padding: 16,
+  },
+  input: {
+    height: 80,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 12,
+    paddingLeft: 8,
+
   },
 });
