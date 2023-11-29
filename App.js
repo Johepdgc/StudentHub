@@ -1,28 +1,30 @@
+import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Pressable, StyleSheet, Text, View, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Login from './Login';
-import Register from './Register';
-import CreatePost from './Home';
-
+import Login from './screens/Login';
+import Register from './screens/Register';
+import Home from './screens/Home';
+import Chat from './screens/Chat';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Home'>
-        <Stack.Screen name='Home' component={HomeScreen} options={{ headerShown: false }}/>
+      <Stack.Navigator initialRouteName='Welcome'>
+        <Stack.Screen name='Welcome' component={Welcome} options={{ headerShown: false }}/>
         <Stack.Screen name='Login' component={Login} options={{ headerShown: false }}/>
         <Stack.Screen name='Register' component={Register} options={{ headerShown: false }}/>
-        <Stack.Screen name='CreatePost' component={CreatePost} options={{ headerShown: false }}/>
+        <Stack.Screen name='Home' component={Home} options={{ headerShown: false }}/>
+        <Stack.Screen name='Chat' component={Chat} options={{ headerShown: false }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
-function HomeScreen({ navigation }) {
+function Welcome({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
@@ -36,7 +38,7 @@ function HomeScreen({ navigation }) {
           <Text style={styles.buttonText}>Iniciar Sesión</Text>
         </Pressable>
         <Pressable style={styles.button} onPress={() => navigation.navigate('Register')}>
-          <Text style={styles.buttonText}>Registarse</Text>
+          <Text style={styles.buttonText}>Registrarse</Text>
         </Pressable>
       </View>
       <StatusBar style="auto" />

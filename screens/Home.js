@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { View, TextInput, Button, StyleSheet, TouchableOpacity, Text, Dimensions } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faMagnifyingGlass, faIdBadge, faInbox, faPeopleGroup, faUserGroup, faCalendarDay } from '@fortawesome/free-solid-svg-icons';
+import { useNavigation } from '@react-navigation/native';
 
 
-export default function CreatePost() {
+export default function Home() {
+  const navigator = useNavigation();
   const [postContent, setPostContent] = useState('');
 
   const handleSubmit = () => {
@@ -25,7 +27,7 @@ export default function CreatePost() {
       <TouchableOpacity onPress={() => {}}>
         <FontAwesomeIcon icon={faIdBadge} size={32} color='white' />
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => {}}>
+      <TouchableOpacity onPress={() => (navigator.navigate('Chat'))}>
         <FontAwesomeIcon icon={faInbox} size={32} color='white' />
       </TouchableOpacity>
       <TouchableOpacity onPress={() => {}}>
