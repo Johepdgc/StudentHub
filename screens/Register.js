@@ -2,26 +2,16 @@ import React, { useState } from "react";
 import { View, StatusBar, TextInput, Pressable, StyleSheet, Text, Picker, Image, ScrollView, SafeAreaView } from 'react-native';
 import { RadioButton } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
-import { auth } from '../config/Firebase';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+
 
 export default function Register() {
-  const navigator = useNavigation();
+  const navigation = useNavigation();
   const [value, setValue] = React.useState('first');
   const [username, setUsername] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [confirmPassword, setConfirmPassword] = React.useState('');
   const [dob, setDob] = React.useState('');
-
-  const handleRegister = () => {
-    if (email !== ''&& password !== '' && confirmPassword !== '' && dob !== '') {
-      createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => console.log('Usuario registrado'))
-        .catch((error) => Alert.alert('Error', 'Usuario o contraseña incorrectos'));
-    }
-  }
-
     return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.contentContainer}>
@@ -100,7 +90,7 @@ export default function Register() {
             placeholder="Year"
             onChangeText={(text) => setYear(text)}
           />
-          <Pressable style={styles.button} on onPress={() => (handleRegister)}>
+          <Pressable style={styles.button} on onPress={() => navigation.navigate('Home')}>
             <Text style={styles.buttonText}>Registarse</Text>
           </Pressable>
       </ScrollView>

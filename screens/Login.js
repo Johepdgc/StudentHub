@@ -1,23 +1,12 @@
 import React from 'react';
 import { View, TextInput, Pressable, StyleSheet, Text, Image, SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { auth } from '../config/Firebase';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+
 
 const Login = () => {
-
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
-
-    const handleLogin = () => {
-        if (email !== '' && password !== '') {
-            signInWithEmailAndPassword(auth, email, password)
-                .then((userCredential) =>  console.log('Usuario logueado'))
-                .catch((error) => Alert.alert('Error', 'Usuario o contraseña incorrectos'));
-        }
-    };
-
-    const navigator = useNavigation();
+    const navigation = useNavigation();
     return (
         <View style={styles.container}>
             <View style={styles.imageContainer}>
@@ -47,7 +36,7 @@ const Login = () => {
                     value='password'
                     onChangeText={(text) => setPassword(text)}
                 />
-                <Pressable style={styles.button} on onPress={() => (handleLogin)}>
+                <Pressable style={styles.button} on onPress={() => navigation.navigate('Home')}>
                     <Text style={styles.buttonText}>Ingresar</Text>
                 </Pressable>
             </SafeAreaView>
