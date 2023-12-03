@@ -29,3 +29,31 @@ moongose.connect(
 app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`);
 });
+
+const User = require('./models/user');
+const Message = require('./models/message');
+
+// endpoint for registration of the user
+app.post('/Register', (req, res) => {
+    const { name, email, password, confirmPassword, dob, college, genero, major, year } = req.body;
+
+    //create a new user
+    const newUser = new User({
+        name,
+        email,
+        password,
+        confirmPassword,
+        dob,
+        college,
+        genero,
+        major,
+        year,
+    });
+    //save the user
+    newUser.save().then(() => {
+        res.status(200).json({message:"User registered successfully"});
+    }).catch((err) => {
+        console.log("Error for user registration",err);
+        res.status(500).json({message:"Error registering user"});
+    });
+});

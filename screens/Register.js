@@ -1,20 +1,32 @@
-import React, { useState } from "react";
-import { View, StatusBar, TextInput, Pressable, StyleSheet, Text, Picker, Image, ScrollView, SafeAreaView } from 'react-native';
-import { RadioButton } from 'react-native-paper';
+import React from "react";
+import { View, StatusBar, TextInput, Pressable, StyleSheet, Text, Image, ScrollView, SafeAreaView, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 
-export default function Register() {
+const Register = () => {
   const navigation = useNavigation();
-  const [value, setValue] = React.useState('first');
   const [username, setUsername] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [confirmPassword, setConfirmPassword] = React.useState('');
   const [dob, setDob] = React.useState('');
+  const [selectedValue, setSelectedValue] = React.useState('null');
+
+  const CustomRadioButton = ({ label, selected, onSelect }) => ( 
+    <TouchableOpacity 
+        style={[styles.radioButton, 
+        { backgroundColor: selected ? '#F2C94C' : '#FFFFFF' }]} 
+        onPress={onSelect} 
+    > 
+        <Text style={[styles.radioButtonText, 
+        { color: selected ? '#FFFFFF' : '#0D203C' }]}> 
+            {label} 
+        </Text> 
+    </TouchableOpacity> 
+);
     return (
     <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.contentContainer}>
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.contentContainer}>
         <View style={styles.imageContainer}>
           <Image
             style={styles.logo}
@@ -57,19 +69,26 @@ export default function Register() {
           placeholder="Date of Birth"
           onChangeText={(text) => setDob(text)}
         />
-        <Text>Genero</Text>
-        <View>
-        <RadioButton.Group onValueChange={newValue => setValue(newValue)} value={value}>
-          <View>
-            <Text>Hombre</Text>
-            <RadioButton value="Hombre" />
-          </View>
-          <View>
-            <Text>Mujer</Text>
-            <RadioButton value="Mujer" />
-          </View>
-        </RadioButton.Group>
-          </View>
+        <View style={styles.radioButtonContainer}>
+          <Text style={styles.text}>
+            Genero
+          </Text>
+          <CustomRadioButton
+            label="Masculino" 
+            selected={selectedValue === 'option1'} 
+            onSelect={() => setSelectedValue('option1')} 
+          /> 
+          <CustomRadioButton 
+            label="Femenino"
+            selected={selectedValue === 'option2'} 
+            onSelect={() => setSelectedValue('option2')} 
+          /> 
+          <CustomRadioButton 
+            label="Otro"
+            selected={selectedValue === 'option3'} 
+            onSelect={() => setSelectedValue('option3')} 
+          />
+        </View>
           <TextInput
             style={styles.input}
             placeholder="College"
@@ -105,17 +124,36 @@ const styles = StyleSheet.create({
       backgroundColor: '#0D203C',
       alignItems: 'center',
       justifyContent: 'center',
-      
     },
     contentContainer: {
-      flex: 1,
       backgroundColor: '#0D203C',
       alignItems: 'center',
       justifyContent: 'center',
       padding: 20,
     },
+    radioButtonContainer: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginBottom: 20,
+      marginTop: 20,
+    },
+    radioButton: {
+      paddingVertical: 12, 
+        paddingHorizontal: 16, 
+        borderRadius: 30, 
+        marginVertical: 8,
+        flexDirection: 'row', 
+        alignItems: 'center', 
+        justifyContent: 'center', 
+        width: 180,    
+    },
+    radioButtonText: {
+      color: '#0D203C',
+      fontSize: 12,
+      fontWeight: 'bold',
+      marginRight: 10,
+    },
     imageContainer: {
-      
       alignItems: 'center',
       justifyContent: 'center',
     },
@@ -133,6 +171,15 @@ const styles = StyleSheet.create({
       borderRadius: 30,
       backgroundColor: 'white',
       textAlign: 'center',
+      marginBottom: 10,
+      marginTop: 10,
+    },
+    text: {
+      color: 'white',
+      fontSize: 21,
+      lineHeight: 21,
+      fontWeight: 'bold',
+      letterSpacing: 0.25,
       marginBottom: 10,
       marginTop: 10,
     },
@@ -157,3 +204,5 @@ const styles = StyleSheet.create({
       color: 'white',
   },
 });
+
+export default Register;
