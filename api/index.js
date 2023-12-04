@@ -14,6 +14,7 @@ app.use(bodyParser.json());
 app.use(passport.initialize());
 const jwt = require('jsonwebtoken');
 
+// conexion a mongodb
 moongose.connect(
     "mongodb+srv://johepgradis:gradis1@studenhubapp.zmmehhd.mongodb.net/",
     {
@@ -30,14 +31,15 @@ app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`);
 });
 
+// llamado de modelos y schemas de mongodb
 const User = require('./models/user');
 const Message = require('./models/message');
 
-// endpoint for registration of the user
+// endpoint para el registro del usuario
 app.post('/Register', (req, res) => {
     const { username, email, password, confirmPassword, dob, college, genero, major, year } = req.body;
 
-    //create a new user
+    // crear un nuevo usuario
     const newUser = new User({
         username,
         email,
@@ -49,7 +51,8 @@ app.post('/Register', (req, res) => {
         major,
         year,
     });
-    //save the user
+    
+    // guardar el usuario en la base de datos
     newUser.save().then(() => {
         res.status(200).json({message:"User registered successfully"});
     }).catch((err) => {

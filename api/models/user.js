@@ -1,4 +1,7 @@
+// llamado de mongodb
 const mongoose = require('mongoose');
+
+// creacion de esquema de usuario
 const userSchema = new mongoose.Schema({
     username: {
         type: String,

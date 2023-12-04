@@ -19,8 +19,8 @@ const Register = () => {
   
   const handleRegistration = () => {
     if (password !== confirmPassword) {
-      // Show an error message and return early.
-      Alert.alert('Error', 'The passwords do not match.');
+      // Mostrar error de que las contraseñas no coinciden
+      Alert.alert('Error', 'Las contraseña no coinciden');
       return;
     }
     const user = {
@@ -36,10 +36,11 @@ const Register = () => {
       year: year,
     }
 
-    // send a post reques to the backend API to register the user
+    // enviar una solicitud post a la API de backend para registrar al usuario
     axios.post('http://localhost:3000/Register', user).then((response) => {
       console.log(response);
-      Alert.alert('Registro exitoso', 'Usuario registrado exitosamente');
+      Alert.alert('Registro exitoso', 'Bienvenido a Student Hub');
+      
       setUsername('');
       setEmail('');
       setPassword('');

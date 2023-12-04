@@ -1,5 +1,7 @@
+// llamado de mongodb
 const moongose = require('mongoose');
 
+// creacion de esquema de mensajes
 const messageSchema = new moongose.Schema({
     sender: {
         type: moongose.Schema.Types.ObjectId,
