@@ -1,21 +1,58 @@
-import React from 'react';
-import { View, TextInput, Pressable, StyleSheet, Text, Image, SafeAreaView } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, TextInput, Pressable, StyleSheet, Text, Image, SafeAreaView, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const Login = () => {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
     const navigation = useNavigation();
+
+    useEffect(() => {
+        const checkLogin = async () => {
+            try {
+                const token = await AsyncStorage.getItem('authToken');
+                if(token){
+                    navigation.replace('Home');
+                } else {
+                // token no existe
+                }
+            } catch (error) {
+                console.log('Error', error);
+            }
+        };
+
+        checkLogin();
+    }, []);
+
+    const handleLogin = () => {
+        const user = {
+            email: email,
+            password:password,
+        }
+
+        axios.post('http://localhost:3000/Login', user).then((response) => {
+            console.log(response);
+            const token = response.data.token;
+            AsyncStorage.setItem('authToken', token);
+            
+            navigation.replace('Home');
+        }).catch((err) => {
+            Alert.alert('Error', 'Correo o contraseña incorrecta');
+            console.log('Error de ingreso', err);
+        });
+    };
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <View style={styles.imageContainer}>
                 <Image
                     style={styles.logo}
                     source={require('../assets/logo.png')}
                 />
             </View>
-            <SafeAreaView style={styles.loginContainer}>
+            <View style={styles.loginContainer}>
                 <TextInput
                     style={styles.input}
                     placeholder="Correo electrónico"
@@ -23,7 +60,7 @@ const Login = () => {
                     keyboardType='email-address'
                     textContentType='emailAddress'
                     autoFocus={true}
-                    value='email'
+                    value={email}
                     onChangeText={(text) => setEmail(text)}
                 />
                 <TextInput
@@ -33,14 +70,14 @@ const Login = () => {
                     autoCorrect={false}
                     secureTextEntry={true}
                     textContentType='password'
-                    value='password'
+                    value={password}
                     onChangeText={(text) => setPassword(text)}
                 />
-                <Pressable style={styles.button} on onPress={() => navigation.navigate('Home')}>
+                <Pressable style={styles.button} on onPress={handleLogin}>
                     <Text style={styles.buttonText}>Ingresar</Text>
                 </Pressable>
-            </SafeAreaView>
-        </View>
+            </View>
+        </SafeAreaView>
     );
 };
 

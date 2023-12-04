@@ -60,3 +60,42 @@ app.post('/Register', (req, res) => {
         res.status(500).json({message:"Error registering user"});
     });
 });
+
+// funcion para crear el token
+const createToken = (userId) => {
+    // crear el payload token con el id del usuario
+    const payload = { userId: userId, };
+
+    // generar el token secreto
+    const token = jwt.sign(payload, "QWertYuIoP1asd23FG", { expiresIn: "1h" });
+    return token;
+};
+
+// endpoint para el login del usuario
+app.post('/Login', (req, res) => {
+    const { email, password } = req.body;
+
+    // validar que los campos no esten vacios
+    if(!email || !password){
+        return res.status(404).json({message:"Llenar todos los campos"});
+    }
+
+    // buscar el usuario en la base de datos
+    User.findOne({ email }).then((user) => {
+        if(!user){
+            // usuario no encontrado
+            return res.status(404).json({message:"Usuario no encontrado"});
+        }
+
+        // comparar la contraseña ingresada con la contraseña del usuario
+        if(user.password !== password){
+            return res.status(404).json({message:"Contraseña incorrecta"});
+        }
+
+        const token = createToken(user._id);
+        res.status(200).json({token})
+    }).catch((err) => {
+        console.log("Error encontrando el usuario",err);
+        res.status(500).json({message:"Error de servidor"});
+    })
+});
