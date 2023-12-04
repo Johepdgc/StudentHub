@@ -13,9 +13,29 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    image: {
+    confirmPassword: { 
         type: String,
-        required: false,
+        required: true,
+    },
+    dob: { 
+        type: Date,
+        required: true,
+    },
+    college: { 
+        type: String,
+        required: true,
+    },
+    genero: { 
+        type: String,
+        required: true,
+    },
+    major: { 
+        type: String,
+        required: true,
+    },
+    year: { 
+        type: Number,
+        required: true,
     },
     friendRequests: [
         {

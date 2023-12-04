@@ -9,7 +9,7 @@ const port = 3000;
 const cors = require('cors');
 app.use(cors());
 
-app. use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
 const jwt = require('jsonwebtoken');
@@ -35,11 +35,11 @@ const Message = require('./models/message');
 
 // endpoint for registration of the user
 app.post('/Register', (req, res) => {
-    const { name, email, password, confirmPassword, dob, college, genero, major, year } = req.body;
+    const { username, email, password, confirmPassword, dob, college, genero, major, year } = req.body;
 
     //create a new user
     const newUser = new User({
-        name,
+        username,
         email,
         password,
         confirmPassword,

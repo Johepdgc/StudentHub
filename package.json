@@ -17,6 +17,7 @@
     "@fortawesome/react-native-fontawesome": "^0.3.0",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-navigation/native-stack": "^6.9.17",
+    "axios": "^1.6.2",
     "dotenv": "^16.3.1",
     "expo": "~49.0.15",
     "expo-constants": "^14.4.2",
