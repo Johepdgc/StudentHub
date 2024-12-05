@@ -5,38 +5,42 @@ const mongoose = require('mongoose');
 const userSchema = new mongoose.Schema({
     username: {
         type: String,
+        unique: true,
         required: true,
     },
-    email: { 
+    email: {
         type: String,
         required: true,
         unique: true,
     },
-    password: { 
+    password: {
         type: String,
         required: true,
     },
-    confirmPassword: { 
+    confirmPassword: {
         type: String,
         required: true,
     },
-    dob: { 
+    imageProfile: {
+        type: String,
+    },
+    dob: {
         type: Date,
         required: true,
     },
-    college: { 
+    college: {
         type: String,
         required: true,
     },
-    genero: { 
+    genero: {
         type: String,
         required: true,
     },
-    major: { 
+    major: {
         type: String,
         required: true,
     },
-    year: { 
+    year: {
         type: Number,
         required: true,
     },
@@ -58,6 +62,10 @@ const userSchema = new mongoose.Schema({
             ref: 'User',
         }
     ],
+    joinDate: {
+        type: Date,
+        default: Date.now,
+    }
 });
 
 const User = mongoose.model('User', userSchema);

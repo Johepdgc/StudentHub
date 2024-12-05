@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+const ip = "192.168.1.29";
 
 const Login = () => {
     const [email, setEmail] = React.useState('');
@@ -14,10 +15,10 @@ const Login = () => {
         const checkLogin = async () => {
             try {
                 const token = await AsyncStorage.getItem('authToken');
-                if(token){
-                    navigation.replace('Home');
-                } else {
-                // token no existe
+                if (token) {
+                    setTimeout(() => {
+                        navigation.replace('Home');
+                    }, 400);
                 }
             } catch (error) {
                 console.log('Error', error);
@@ -30,15 +31,15 @@ const Login = () => {
     const handleLogin = () => {
         const user = {
             email: email,
-            password:password,
+            password: password,
         }
 
-        axios.post('http://localhost:3000/Login', user).then((response) => {
+        axios.post(`http://${ip}:3000/Login`, user).then((response) => {
             console.log(response);
             const token = response.data.token;
             AsyncStorage.setItem('authToken', token);
-            
-            navigation.replace('Home');
+
+            navigation.navigate('Home');
         }).catch((err) => {
             Alert.alert('Error', 'Correo o contraseña incorrecta');
             console.log('Error de ingreso', err);

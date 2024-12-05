@@ -6,20 +6,31 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './screens/Login';
 import Register from './screens/Register';
 import Home from './screens/Home';
+import Profile from './screens/Profile';
 import Chat from './screens/Chat';
+import Post from './screens/Post';
+import Search from './screens/Search';
+import Inbox from './screens/Inbox';
+import { UserContext } from './UserContext';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Welcome'>
-        <Stack.Screen name='Welcome' component={Welcome} options={{ headerShown: false }}/>
-        <Stack.Screen name='Login' component={Login} options={{ headerShown: false }}/>
-        <Stack.Screen name='Register' component={Register} options={{ headerShown: false }}/>
-        <Stack.Screen name='Home' component={Home} options={{ headerShown: false }}/>
-        <Stack.Screen name='Chat' component={Chat} options={{ headerShown: false }}/>
-      </Stack.Navigator>
+      <UserContext>
+        <Stack.Navigator initialRouteName='Welcome'>
+          <Stack.Screen name='Welcome' component={Welcome} options={{ headerShown: false }} />
+          <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />
+          <Stack.Screen name='Register' component={Register} options={{ headerShown: false }} />
+          <Stack.Screen name='Home' component={Home} options={{ headerShown: false }} />
+          <Stack.Screen name='Profile' component={Profile} options={{ headerShown: false }} />
+          <Stack.Screen name='Chat' component={Chat} options={{ headerShown: false }} />
+          <Stack.Screen name='Post' component={Post} options={{ headerShown: false }} />
+          <Stack.Screen name='Search' component={Search} options={{ headerShown: false }} />
+          <Stack.Screen name='Inbox' component={Inbox} options={{ headerShown: false }} />
+        </Stack.Navigator>
+      </UserContext>
     </NavigationContainer>
   );
 }
