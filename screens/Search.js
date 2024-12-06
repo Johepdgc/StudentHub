@@ -9,7 +9,7 @@ const Search = () => {
     const [users, setUsers] = useState([]);
 
     const searchUsers = () => {
-        axios.get(`http://l${ip}:3000/users/search?username=${username}`)
+        axios.get(`http://${ip}:3000/users/search?username=${username}`)
             .then(response => {
                 setUsers(response.data);
             })

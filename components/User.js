@@ -1,11 +1,12 @@
 import { StyleSheet, Text, View, Image, Pressable } from "react-native";
+import PropTypes from 'prop-types';
 import React, { useContext, useState, useEffect } from "react";
 import { UserType } from "../UserContext";
 
 const ip = '192.168.1.29';
 
 const User = ({ item }) => {
-    const { userId, setUserId } = useContext(UserType);
+    const { userId } = useContext(UserType);
     console.log("sds", item, userId);
     const [requestSent, setRequestSent] = useState(false);
     const sendFollow = async (currentUserId, selectedUserId) => {
@@ -109,6 +110,13 @@ const User = ({ item }) => {
             </View>
         </View>
     );
+};
+User.propTypes = {
+    item: PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        username: PropTypes.string.isRequired,
+        friends: PropTypes.arrayOf(PropTypes.string),
+    }).isRequired,
 };
 
 export default User;

@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect, useCallback } from 'react';
 import { View, TextInput, Button, StyleSheet, TouchableOpacity, Image, Text, Dimensions, ScrollView } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faMagnifyingGlass, faIdBadge, faInbox, faPeopleGroup, faUserGroup, faCalendarDay, faArrowRightFromBracket, faCirclePlus, faComment, faHeart, faBell, faMessage, faShare } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass, faIdBadge, faInbox, faPeopleGroup, faUserGroup, faCalendarDay, faCirclePlus, faComment, faHeart, faMessage, faShare } from '@fortawesome/free-solid-svg-icons';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { UserType } from '../UserContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -44,6 +44,7 @@ const Home = () => {
     }
   };
 
+  console.log("posts", posts);
   const handleLike = async (postId) => {
     try {
       const response = await axios.put(

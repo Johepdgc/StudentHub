@@ -3,7 +3,6 @@ const bodyParser = require('body-parser');
 const moongose = require('mongoose');
 const crypto = require('crypto');
 const passport = require('passport');
-const session = require('express-session');
 const multer = require('multer');
 const path = require('path');
 
@@ -47,7 +46,6 @@ const router = express.Router();
 // command + d to show the developer tools
 app.use('/uploads', express.static('uploads'));
 app.use(passport.initialize());
-app.use(session({ secret: 'QWertYuIoP1asd23FG', resave: false, saveUninitialized: true, cookie: { secure: false } }));
 
 // Configuración de multer para manejar la subida de archivos
 const storage = multer.diskStorage({
@@ -59,23 +57,6 @@ const storage = multer.diskStorage({
     }
 });
 const upload = multer({ storage });
-
-
-const authMiddleware = (req, res, next) => {
-    const token = req.headers.authorization?.split(' ')[1];
-    if (!token) return res.status(401).json({ message: 'Access denied' });
-
-    try {
-        const verified = jwt.verify(token, 'QWertYuIoP1asd23FG');
-        req.userId = verified.userId;
-        next();
-    } catch (err) {
-        res.status(400).json({ message: 'Invalid token' });
-    }
-};
-
-app.use('/posts', authMiddleware); // Protección de endpoints relacionados con posts
-
 
 // endpoint para enviar solicitudes de amistad
 app.post('/friendRequest', async (req, res) => {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Image, TextInput, Pressable, Alert } from "react-native";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faXmark, faCameraRetro } from '@fortawesome/free-solid-svg-icons';
@@ -7,7 +7,7 @@ import * as MediaLibrary from 'expo-media-library';
 import * as ImagePicker from 'expo-image-picker';
 import { UserType } from "../UserContext";
 import axios from 'axios';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 const ip = '192.168.1.29';
 
@@ -28,6 +28,8 @@ export default function Post() {
             .post(`http://${ip}:3000/create-post`, postData)
             .then((response) => {
                 setContent("");
+                Alert.alert("Post creado", "Tu post ha sido creado exitosamente");
+                navigation.goBack();
             })
             .catch((error) => {
                 console.log("error creating post", error);

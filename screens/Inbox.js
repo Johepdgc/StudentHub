@@ -18,20 +18,17 @@ const Inbox = () => {
     };
     useEffect(() => {
         const fetchUsers = async () => {
-            try {
-                const token = await AsyncStorage.getItem('authToken');
-                const decodedToken = jwtDecode(token);
-                const userId = decodedToken.userId;
-                setUserId(userId);
+            const token = await AsyncStorage.getItem('authToken');
+            const decodedToken = jwtDecode(token);
+            const userId = decodedToken.userId;
+            setUserId(userId);
 
-                const response = await axios.get(`http://${ip}:3000/user/${userId}`);
-                console.log("API response:", response.data);
+            axios.get(`http://${ip}:3000/user/${userId}`).then((response) => {
                 setUsers(response.data);
-            } catch (error) {
-                console.log("error buscando usuarios", error);
-            }
+            }).catch((error) => {
+                console.log("error", error);
+            });
         };
-
         fetchUsers();
     }, []);
     console.log("users", users);
@@ -53,17 +50,17 @@ const Inbox = () => {
                                     borderRadius: 10,
                                     borderWidth: 1,
                                 },
-                                selectedButton === 'people' ? { backgroundColor: 'black' } : null,
+                                selectedButton === 'people' ? { backgroundColor: 'white' } : null,
                             ]}
                         >
                             <Text style={[
                                 { textAlign: 'center', fontWeight: 'bold' },
                                 selectedButton === 'people'
-                                    ? { color: 'white' }
-                                    : { color: 'black' },
+                                    ? { color: 'black' }
+                                    : { color: 'white' },
                             ]}
                             >
-                                People
+                                Personas
                             </Text>
                         </TouchableOpacity>
                         <TouchableOpacity
@@ -78,14 +75,14 @@ const Inbox = () => {
                                     borderRadius: 10,
                                     borderWidth: 1,
                                 },
-                                selectedButton === 'todo' ? { backgroundColor: 'black' } : null,
+                                selectedButton === 'todo' ? { backgroundColor: 'white' } : null,
                             ]}
                         >
                             <Text style={[
                                 { textAlign: 'center', fontWeight: 'bold' },
                                 selectedButton === 'todo'
-                                    ? { color: 'white' }
-                                    : { color: 'black' },
+                                    ? { color: 'black' }
+                                    : { color: 'white' },
                             ]}
                             >
                                 Todo
@@ -103,14 +100,14 @@ const Inbox = () => {
                                     borderRadius: 10,
                                     borderWidth: 1,
                                 },
-                                selectedButton === 'solicitudes' ? { backgroundColor: 'black' } : null,
+                                selectedButton === 'solicitudes' ? { backgroundColor: 'white' } : null,
                             ]}
                         >
                             <Text style={[
                                 { textAlign: 'center', fontWeight: 'bold' },
                                 selectedButton === 'solicitudes'
-                                    ? { color: 'white' }
-                                    : { color: 'black' },
+                                    ? { color: 'black' }
+                                    : { color: 'white' },
                             ]}
                             >
                                 Solicitudes

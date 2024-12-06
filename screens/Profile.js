@@ -86,7 +86,7 @@ const ProfileScreen = () => {
                     </View>
                 </View>
                 <Text style={{ color: "gray", fontSize: 15, marginTop: 10 }}>
-                    {user?.followers?.length} followers
+                    {user?.friends?.length} followers
                 </Text>
                 <View style={{ flexDirection: "row", alignItems: "center", gap: 10, marginTop: 20 }}>
                     <Pressable
