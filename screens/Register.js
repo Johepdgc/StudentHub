@@ -3,7 +3,7 @@ import { View, StatusBar, TextInput, Pressable, StyleSheet, Text, Image, ScrollV
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 
-const ip = '192.168.1.29';
+const ip = '192.168.1.25';
 
 const Register = () => {
   const [username, setUsername] = React.useState('');

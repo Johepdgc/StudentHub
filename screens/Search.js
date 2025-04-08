@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, TextInput, Button, FlatList, Text } from 'react-native';
 import axios from 'axios';
 
-const ip = "192.168.1.29";
+const ip = "192.168.1.25";
 
 const Search = () => {
     const [username, setUsername] = useState('');

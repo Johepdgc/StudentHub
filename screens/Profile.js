@@ -5,7 +5,7 @@ import { UserType } from "../UserContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 
-const ip = '192.168.1.29';
+const ip = '192.168.1.25';
 
 const ProfileScreen = () => {
     const [user, setUser] = useState("");
@@ -37,87 +37,38 @@ const ProfileScreen = () => {
     }
 
     return (
-        <View style={{ marginTop: 55, padding: 15 }}>
-            <View>
-                <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
-                    <Text style={{ fontSize: 20, fontWeight: "bold" }}>{user?.username}</Text>
-                    <View
-                        style={{
-                            paddingHorizontal: 7,
-                            paddingVertical: 5,
-                            borderRadius: 8,
-                            backgroundColor: "#D0D0D0",
-                        }}
-                    >
-                        <Text>Threads.net</Text>
-                    </View>
+        <View style={styles.container}>
+            <View style={styles.header}>
+                <Text style={styles.username}>{user?.username}</Text>
+                <View style={styles.tag}>
+                    <Text style={styles.tagText}>Threads.net</Text>
                 </View>
+            </View>
 
-                <View
-                    style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                        gap: 20,
-                        marginTop: 15,
+            <View style={styles.profileInfo}>
+                <Image
+                    style={styles.avatar}
+                    source={{
+                        uri: "https://cdn-icons-png.flaticon.com/128/149/149071.png",
                     }}
-                >
-                    <View>
-                        <Image
-                            style={{
-                                width: 60,
-                                height: 60,
-                                borderRadius: 30,
-                                resizeMode: "contain",
-                            }}
-                            source={{
-                                uri: "https://cdn-icons-png.flaticon.com/128/149/149071.png",
-                            }}
-                        />
-                    </View>
-
-                    <View>
-                        <Text style={{ fontSize: 15, fontWeight: "400" }}>BTech.</Text>
-                        <Text style={{ fontSize: 15, fontWeight: "400" }}>
-                            Movie Buff | Musical Nerd
-                        </Text>
-                        <Text style={{ fontSize: 15, fontWeight: "400" }}>
-                            Love Yourself
-                        </Text>
-                    </View>
+                />
+                <View style={styles.bio}>
+                    <Text style={styles.bioText}>BTech.</Text>
+                    <Text style={styles.bioText}>Movie Buff | Musical Nerd</Text>
+                    <Text style={styles.bioText}>Love Yourself</Text>
                 </View>
-                <Text style={{ color: "gray", fontSize: 15, marginTop: 10 }}>
-                    {user?.friends?.length} followers
-                </Text>
-                <View style={{ flexDirection: "row", alignItems: "center", gap: 10, marginTop: 20 }}>
-                    <Pressable
-                        style={{
-                            flex: 1,
-                            justifyContent: "center",
-                            alignItems: "center",
-                            padding: 10,
-                            borderColor: "#D0D0D0",
-                            borderWidth: 1,
-                            borderRadius: 5,
-                        }}
-                    >
-                        <Text>Edit Profile</Text>
-                    </Pressable>
+            </View>
 
-                    <Pressable
-                        onPress={logout}
-                        style={{
-                            flex: 1,
-                            justifyContent: "center",
-                            alignItems: "center",
-                            padding: 10,
-                            borderColor: "#D0D0D0",
-                            borderWidth: 1,
-                            borderRadius: 5,
-                        }}
-                    >
-                        <Text>Logout</Text>
-                    </Pressable>
-                </View>
+            <Text style={styles.followers}>{user?.friends?.length} followers</Text>
+
+            <View style={styles.buttonsContainer}>
+                <Pressable style={styles.button}>
+                    <Text style={styles.buttonText}>Edit Profile</Text>
+                </Pressable>
+
+                <Pressable onPress={logout} style={styles.button}>
+                    <Text style={styles.buttonText}>Logout</Text>
+                </Pressable>
             </View>
         </View>
     );
@@ -125,4 +76,75 @@ const ProfileScreen = () => {
 
 export default ProfileScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#0D203C',
+        padding: 20,
+        paddingTop: 60,
+    },
+    header: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        marginBottom: 20,
+    },
+    username: {
+        fontSize: 24,
+        fontWeight: "bold",
+        color: 'white',
+    },
+    tag: {
+        paddingHorizontal: 10,
+        paddingVertical: 5,
+        borderRadius: 8,
+        backgroundColor: "#D0D0D0",
+        marginLeft: 10,
+    },
+    tagText: {
+        color: '#0D203C',
+        fontWeight: 'bold',
+    },
+    profileInfo: {
+        flexDirection: "row",
+        alignItems: "center",
+        marginBottom: 20,
+    },
+    avatar: {
+        width: 80,
+        height: 80,
+        borderRadius: 40,
+        marginRight: 20,
+    },
+    bio: {
+        flex: 1,
+    },
+    bioText: {
+        fontSize: 16,
+        color: 'white',
+        marginBottom: 5,
+    },
+    followers: {
+        color: "gray",
+        fontSize: 16,
+        marginBottom: 20,
+    },
+    buttonsContainer: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+    },
+    button: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        padding: 15,
+        borderWidth: 0,
+        borderRadius: 20,
+        marginHorizontal: 5,
+        backgroundColor: '#F2C94C',
+    },
+    buttonText: {
+        color: 'white',
+        fontWeight: 'bold',
+    },
+});

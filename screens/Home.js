@@ -8,7 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { jwtDecode } from "jwt-decode";
 import axios from 'axios';
 
-const ip = '192.168.1.29';
+const ip = '192.168.1.25';
 
 const Home = () => {
   const navigation = useNavigation();

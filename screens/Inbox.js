@@ -5,14 +5,38 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { jwtDecode } from "jwt-decode";
 import User from '../components/User';
+import FriendRequest from '../components/FriendRequest';
 
-const ip = "192.168.1.29";
+const ip = "192.168.1.25";
 
 const Inbox = () => {
     const [selectedButton, setSelectedButton] = useState('people');
     const [content, setContent] = useState('People Content');
     const [users, setUsers] = useState([]);
     const { userId, setUserId } = useContext(UserType);
+    const [friendRequests, setFriendRequests] = useState([]);
+    useEffect(() => {
+        fetchFriendRequests();
+    }, []);
+    const fetchFriendRequests = async () => {
+        try {
+            const response = await axios.get(
+                `http://${ip}:3000/friend-request/${userId}`
+            );
+            if (response.status === 200) {
+                const friendRequestsData = response.data.map((friendRequest) => ({
+                    _id: friendRequest._id,
+                    name: friendRequest.name,
+                    email: friendRequest.email,
+                    image: friendRequest.image,
+                }));
+                setFriendRequests(friendRequestsData);
+                console.log("Friend Requests:", friendRequestsData);
+            }
+        } catch (err) {
+            console.log("Error buscando solicitudes:", err);
+        }
+    };
     const handleButtonClick = (buttonName) => {
         setSelectedButton(buttonName);
     };
@@ -31,7 +55,6 @@ const Inbox = () => {
         };
         fetchUsers();
     }, []);
-    console.log("users", users);
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.contentContainer}>
@@ -119,6 +142,20 @@ const Inbox = () => {
                             <View style={{ marginTop: 20 }}>
                                 {users?.map((item, index) => (
                                     <User key={item.id ? item.id.toString() : index.toString()} item={item} />
+                                ))}
+                            </View>
+                        )}
+                        {selectedButton === "solicitudes" && (
+                            <View style={{ padding: 10, marginHorizontal: 12 }}>
+                                {friendRequests.length > 0 && <Text>Your Friend Requests!</Text>}
+
+                                {friendRequests.map((item, index) => (
+                                    <FriendRequest
+                                        key={index}
+                                        item={item}
+                                        friendRequests={friendRequests}
+                                        setFriendRequests={setFriendRequests}
+                                    />
                                 ))}
                             </View>
                         )}

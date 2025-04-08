@@ -1,28 +1,26 @@
-// llamado de mongodb
-const moongose = require('mongoose');
+const mongoose = require("mongoose");
 
-// creacion de esquema de mensajes
-const messageSchema = new moongose.Schema({
-    sender: {
-        type: moongose.Schema.Types.ObjectId,
-        ref: 'User',
+const messageSchema = new mongoose.Schema({
+    senderId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
     },
-    receiver: {
-        type: moongose.Schema.Types.ObjectId,
-        ref: 'User',
+    recepientId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
     },
     messageType: {
         type: String,
-        enum: ['text', 'image'],
+        enum: ["text", "image"],
     },
     message: String,
-    imageURL: String,
-    date: {
+    imageUrl: String,
+    timeStamp: {
         type: Date,
         default: Date.now,
-    }
+    },
 });
 
-const Message = moongose.model('Message', messageSchema);
+const Message = mongoose.model('Message', messageSchema);
 
 module.exports = Message;

@@ -1,41 +1,46 @@
-import React, { useState, useEffect } from 'react';
-import { GiftedChat } from 'react-native-gifted-chat';
+import { StyleSheet, Text, View, ScrollView, Pressable } from "react-native";
+import React, { useContext, useEffect, useState } from "react";
+import { UserType } from "../UserContext";
+import { useNavigation } from "@react-navigation/native";
+import UserChat from "../components/UserChat";
 
-const ip = "192.168.1.29";
+const ip = "192.168.1.25";
+
 
 const Chat = () => {
-    const [messages, setMessages] = useState([]);
-    const [ws, setWs] = useState(null);
-
+    const [acceptedFriends, setAcceptedFriends] = useState([]);
+    const { userId, setUserId } = useContext(UserType);
+    const navigation = useNavigation();
     useEffect(() => {
-        const ws = new WebSocket(`ws://${ip}:8000`);
-        ws.onopen = () => console.log('connected');
-        ws.onmessage = (event) => {
-            const message = JSON.parse(event.data);
-            setMessages(previousMessages => GiftedChat.append(previousMessages, message));
+        const acceptedFriendsList = async () => {
+            try {
+                const response = await fetch(
+                    `http://${ip}:3000/accepted-friends/${userId}`
+                );
+                const data = await response.json();
+
+                if (response.ok) {
+                    setAcceptedFriends(data);
+                }
+            } catch (error) {
+                console.log("error showing the accepted friends", error);
+            }
         };
-        ws.onerror = (error) => console.log(error);
-        ws.onclose = () => console.log('disconnected');
-        setWs(ws);
-        return () => ws.close();
+
+        acceptedFriendsList();
     }, []);
-
-    const onSend = newMessages => {
-        setMessages(previousMessages => GiftedChat.append(previousMessages, newMessages));
-        if (ws) {
-            ws.send(JSON.stringify(newMessages[0]));
-        }
-    };
-
+    console.log("friends", acceptedFriends)
     return (
-        <GiftedChat
-            messages={messages}
-            onSend={newMessages => onSend(newMessages)}
-            user={{
-                _id: 1,
-            }}
-        />
+        <ScrollView showsVerticalScrollIndicator={false}>
+            <Pressable>
+                {acceptedFriends.map((item, index) => (
+                    <UserChat key={index} item={item} />
+                ))}
+            </Pressable>
+        </ScrollView>
     );
 };
 
 export default Chat;
+
+const styles = StyleSheet.create({});

@@ -9,7 +9,7 @@ import { UserType } from "../UserContext";
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 
-const ip = '192.168.1.29';
+const ip = '192.168.1.25';
 
 export default function Post() {
     const navigation = useNavigation();

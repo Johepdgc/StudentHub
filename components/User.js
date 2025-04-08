@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React, { useContext, useState, useEffect } from "react";
 import { UserType } from "../UserContext";
 
-const ip = '192.168.1.29';
+const ip = '192.168.1.25';
 
 const User = ({ item }) => {
     const { userId } = useContext(UserType);

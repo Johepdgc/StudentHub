@@ -4,13 +4,12 @@ import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const ip = "192.168.1.29";
+const ip = "192.168.1.25";
 
 const Login = () => {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
     const navigation = useNavigation();
-
     useEffect(() => {
         const checkLogin = async () => {
             try {
@@ -24,16 +23,13 @@ const Login = () => {
                 console.log('Error', error);
             }
         };
-
         checkLogin();
     }, []);
-
     const handleLogin = () => {
         const user = {
             email: email,
             password: password,
         }
-
         axios.post(`http://${ip}:3000/Login`, user).then((response) => {
             console.log(response);
             const token = response.data.token;
